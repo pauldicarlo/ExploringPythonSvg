@@ -1,0 +1,62 @@
+# paul.dicarlo@gmail.com
+import svgwrite
+
+from sailocus.geometry import point
+
+def recalculate(points):
+    margin = 10
+
+    maxX = 0
+    maxY = 0
+
+    updated_points = []
+
+    # TODO ensure that points are in sequence and make sense 
+
+
+    for x,y in points:
+        if x > maxX:
+            maxX = x
+        if y > maxY:
+            maxY = y        
+        updated_points.append((x+margin, y+margin))
+
+    print("maxX=", maxX, " maxY=", maxY)
+
+    canvas_size = (maxX + 2*margin, maxY + 2*margin)
+
+    return canvas_size, margin, updated_points
+
+def create_four_sided_sail(points, fileName):
+
+    #margin = 20
+    #canvas_size = (6k00, 600)
+
+    canvas_size, margin, points = recalculate(points)
+    width, height = canvas_size
+
+    dwg = svgwrite.Drawing(fileName, size=(str(canvas_size[0])+'px', str(canvas_size[1])+'px'))
+    cartesian_group = dwg.g(transform=f"translate(0, {height}) scale(1, -1)")
+
+    dwg.add(dwg.rect(insert=(0, 0), size=('100%', '100%'), fill='darkseagreen'))
+
+    trapezoid = dwg.polygon(
+        points=points,
+        fill='ivory',
+        stroke='black',
+        stroke_width=3
+    )
+
+    cartesian_group.add(trapezoid)
+    dwg.add(cartesian_group)
+    
+    dwg.save()
+
+peak = point.Point(213, 510)
+throat = point.Point(10, 233)
+tack = point.Point(0, 0) 
+clew = point.Point(397, 29) 
+
+four_sided_sail_points = [ peak, throat, tack, clew]
+
+create_four_sided_sail(four_sided_sail_points, "simplesail.svg")
