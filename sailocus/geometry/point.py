@@ -1,3 +1,9 @@
+'''
+@author: Paul DiCarlo
+@copyright: 2025 Paul DiCarlo
+@license: MIT
+@contact: https://github.com/pauldicarlo
+'''
 ################################################################
 # class Point corresponds to the x,y coordinates of the corners 
 # of a 3 or 4 sided sail (Tack, Clew, Head, Peak, and Throat)

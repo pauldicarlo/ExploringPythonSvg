@@ -1,8 +1,14 @@
-# paul.dicarlo@gmail.com
+'''
+@author: Paul DiCarlo
+@copyright: 2025 Paul DiCarlo
+@license: MIT
+@contact: https://github.com/pauldicarlo
+'''
 import svgwrite
 
 from sailocus.geometry import point
 from sailocus.svg import svg
+from sailocus.sail import sail
 
 # import sys
 # from pathlib import Path
@@ -61,6 +67,9 @@ tack = point.Point(0, 0)
 clew = point.Point(397, 29) 
 
 four_sided_sail_points = [ peak, throat, tack, clew]
+
+xsail = sail.Sail(tack, clew, head=None, peak=peak, throat=throat, sailName = "Four sided sail")
+xsail.validateSail()
 
 create_four_sided_sail(four_sided_sail_points, "simplesail.svg")
 
