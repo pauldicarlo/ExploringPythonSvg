@@ -30,7 +30,7 @@ class SVG():
             points=points,
             fill='ivory',
             stroke='black',
-            stroke_width=3
+            stroke_width=1
         )
 
         cartesian_group.add(trapezoid)

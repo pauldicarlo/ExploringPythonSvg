@@ -7,6 +7,7 @@
 import svgwrite
 
 from sailocus.geometry import point
+from sailocus.geometry import line
 from sailocus.svg import svg
 from sailocus.sail import sail
 
@@ -30,10 +31,12 @@ xsail.validateSail()
 
 xsvg = svg.SVG()
 pathToFile = "./simpleSailFromClass.svg"
-off_set = point.Point(10,10)
+off_set = point.Point(25,25)
 xsvg.writeToFile(xsail, pathToFile, off_set)
 
 
+
+lineX = line.Line(point.Point(0,0), point.Point(400,0))
 
 
 
