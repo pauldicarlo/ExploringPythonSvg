@@ -1,6 +1,4 @@
 # ExploringPythonSvg
-Pythong
-
 
 ## Requirements
 * pip install svgwrite
