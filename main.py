@@ -10,6 +10,11 @@ from sailocus.geometry import point
 from sailocus.svg import svg
 from sailocus.sail import sail
 
+import sys
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+from PyQt5.QtSvg import QSvgWidget
+from PyQt5.QtCore import Qt
+
 # import sys
 # from pathlib import Path
 # ys.path.append(str(Path(__file__).parent))  # Add project root
@@ -29,3 +34,17 @@ off_set = point.Point(10,10)
 xsvg.writeToFile(xsail, pathToFile, off_set)
 
 
+
+
+
+app = QApplication(sys.argv)
+window = QMainWindow()
+window.setWindowTitle("SVG Viewer")
+window.resize(500, 500)
+
+svg_widget = QSvgWidget(pathToFile)
+svg_widget.setMinimumSize(500, 500)
+window.setCentralWidget(svg_widget)
+
+window.show()
+sys.exit(app.exec_())
