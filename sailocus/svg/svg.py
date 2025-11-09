@@ -4,6 +4,9 @@
 @license: MIT
 @contact: https://github.com/pauldicarlo
 '''
+
+import svgwrite
+
 from sailocus.geometry.point import Point
 from sailocus.sail.sail import Sail
 
@@ -17,10 +20,12 @@ class SVG():
         self.margin = margin
         self.pathToFile = pathToFile
 
+        points = sail.getAsPoints()
+
         canvas_size, margin, points = recalculate(points)
         width, height = canvas_size
 
-        dwg = svgwrite.Drawing(fileName, size=(str(canvas_size[0])+'px', str(canvas_size[1])+'px'))
+        dwg = svgwrite.Drawing(pathToFile, size=(str(canvas_size[0])+'px', str(canvas_size[1])+'px'))
         cartesian_group = dwg.g(transform=f"translate(0, {height}) scale(1, -1)")
 
         dwg.add(dwg.rect(insert=(0, 0), size=('100%', '100%'), fill='darkseagreen'))

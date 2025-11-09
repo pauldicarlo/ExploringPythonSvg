@@ -64,3 +64,13 @@ class Sail(object):
     def calculateCenterOfEffort(self):
         # TODO implement
         pass
+
+    def getAsPoints(self):
+        points = []
+
+        points.append(self.peak)
+        points.append(self.throat)
+        points.append(self.tack)
+        points.append(self.clew)
+
+        return points
