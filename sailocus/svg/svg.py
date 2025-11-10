@@ -28,6 +28,9 @@ class SVG():
 
         dwg.add(dwg.rect(insert=(0, 0), size=('100%', '100%'), fill='darkseagreen'))
 
+        # dwg.add(dwg.line((10, 50), (250, 100), stroke='blue', stroke_width=5))
+
+
         trapezoid = dwg.polygon(
             points=points,
             fill='ivory',
@@ -46,11 +49,12 @@ class SVG():
             stroke='black',
             stroke_width=1
         )
-        cartesian_group.add(svgTriangle)
-
-
+        #cartesian_group.add(svgTriangle)
 
         dwg.add(cartesian_group)
+
+        # coe
+        dwg.add(dwg.circle(center=(sail.coe.center_of_effort[0], sail.coe.center_of_effort[1]), r=30, fill='blue', stroke='black', stroke_width=1))
         
         dwg.save()
         
