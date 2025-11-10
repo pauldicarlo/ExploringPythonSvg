@@ -19,23 +19,22 @@ class Sail(object):
         self.sailName = sailName 
         
         params = "tack="+str(tack)+", clew="+str(clew)+", head="+str(head)+", peak="+str(peak)+", throat="+str(throat)
-        
-        bHead = head is not None
-        bPeak = peak is not None
-        bThroat = throat is not None
-        
         print(params)
-        if (bHead and bPeak and bThroat) or (not bHead and not bPeak and not bThroat) :
-            raise ValueError('Sail constructor: head, peak, and throat cannot all populated or non empty.  params=' + params)
-        if (bPeak and not bThroat) or (not bPeak and bThroat):
-            raise ValueError('Sail constructor: If peak or throat is populated, then both must be. params=' + params)
         
+        # Some basic checks...we could have a 3 or 4 sided sail, so need to make sure we have consistnt points provided
+        headSupplied = head is not None
+        peakSupplied = peak is not None
+        throatSupplied = throat is not None
+        if all(x == headSupplied for x in (headSupplied, peakSupplied, throatSupplied)):
+            raise ValueError('Sail constructor: head, peak, and throat cannot all populated or non empty.  params=' + params)
+        if not ( peakSupplied == throatSupplied ):
+            raise ValueError('Sail constructor: If peak or throat is populated, then both must be. params=' + params)
+
         self.peak = peak
         self.throat = throat
         self.tack = tack
         self.clew = clew
         self.head = head
-        
         
         self.POINT_NAME_PEAK = "Peak"
         self.POINT_NAME_THROAT = "Throat"
