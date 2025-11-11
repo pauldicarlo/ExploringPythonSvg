@@ -4,7 +4,7 @@
 * pip install svgwrite
 
 # Setting up environment
-* python3 -m venv myenv (on windows)
+* python3 -m venv .venv 
 * source .venv/bin/activate
     * On Windows: myenv/Scripts/Activate
 * pip3 freeze > requirements.txt

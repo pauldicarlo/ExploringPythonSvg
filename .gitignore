@@ -6,6 +6,7 @@ simpleSail.svg
 simpleSailFromClass.svg
 
 myenv
+.venv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
