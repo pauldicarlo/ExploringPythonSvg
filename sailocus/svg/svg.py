@@ -67,6 +67,16 @@ class SVG():
             cartesian_group.add(dwg.circle(center=(triangle.centroid), r=2, fill='blue', stroke='black', stroke_width=1))
             
 
+
+        for line_segment in sail.coe.lines_perpendicular_to_centroid_line_segments:
+            cartesian_group.add(dwg.line(line_segment.point_a , line_segment.point_b, stroke='blue', stroke_width=2))
+
+
+        cartesian_group.add(dwg.line(
+            sail.coe.lines_perpendicular_to_centroid_line_segments[0].point_b,
+            sail.coe.lines_perpendicular_to_centroid_line_segments[1].point_b,
+            stroke='blue', stroke_width=2))
+
         # this will only work for a 4 sided sail...
 
         cartesian_group.add(dwg.line(sail.coe.triangles[0].centroid, sail.coe.triangles[1].centroid, stroke='black', stroke_width=1))
