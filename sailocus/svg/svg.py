@@ -67,16 +67,18 @@ class SVG():
         #     2. ine from end point of vectors from perpendicuar lines
         # the intersection of which gives us sail.coe.center_of_effort which has already been calculated
 
+        transform_group.add(dwg.circle(center=(sail.coe.center_of_effort), r=2, fill='blue', stroke='black', stroke_width=1))
+
         # Need an inner group that flips again so text will be in right orientation 
         text_group = transform_group.add(dwg.g(transform="scale(1, -1)"))  # Flip back!
 
         # TODO: Make this better.
-        text_group.add(dwg.text('tack', insert=(sail.tack.x+5, -1 *(sail.tack.y) - 250), fill='black', font_size='20px'))
+        labelPoint(dwg, text_group, [sail.POINT_NAME_TACK, str(sail.tack)], 
+                   Point(sail.tack.x, -1*sail.tack.y-240), 'black', '20px' )
         text_group.add(dwg.text('throat', insert=(10,-40), fill='black', font_size='20px'))
         text_group.add(dwg.text('clew', insert=(sail.clew.x-40, -sail.clew.y), fill='black', font_size='20px'))
         text_group.add(dwg.text('peak', insert=(sail.peak.x, -(sail.peak.y) +50 ), fill='black', font_size='20px'))
 
-        transform_group.add(dwg.circle(center=(sail.coe.center_of_effort), r=2, fill='blue', stroke='black', stroke_width=1))
         text_group.add(dwg.text('COE', insert=(sail.coe.center_of_effort.x, -sail.coe.center_of_effort.x), fill='black', font_size='20px'))
 
 
@@ -86,6 +88,14 @@ class SVG():
 
         dwg.add(relocation_group)
         dwg.save()
+
+def labelPoint(dwg, dwg_group, text_lines:list[str], insert_point: Point, fill_color: str, font_size:str): 
+
+    next_start_point = insert_point    
+    for text_line in text_lines:
+        dwg_group.add(dwg.text(text_line, insert=next_start_point, fill=fill_color, font_size=font_size  ))
+        next_start_point = Point(next_start_point.x, next_start_point.y+20)
+
         
 def calculateCanvasSize(points: list[Point], off_set: Point):
 
