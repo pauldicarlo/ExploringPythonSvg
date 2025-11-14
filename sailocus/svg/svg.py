@@ -48,74 +48,39 @@ class SVG():
         # draw line from throat to clew
         transform_group.add(dwg.line(sail.throat, sail.clew, stroke='black', stroke_width=1, stroke_dasharray='9,5'))
 
+        # this will only work for a 4 sided sail...
 
-        # coe
-        # dwg.add(dwg.circle(center=(sail.coe.center_of_effort[0], sail.coe.center_of_effort[1]), r=2, fill='blue', stroke='black', stroke_width=1))
-
-
-        #for line_segment in sail.coe.centroid_line_segments:
-        #    dwg.add(dwg.line(line_segment.point_a, line_segment.point_b, stroke='black', stroke_width=1))
-
-        '''
-        for triangle in sail.coe.triangles:
-            tcoe = TriangleCenterOfEffort(triangle)
-            trianglePoints = triangle.getAsPoints()
-            svgTriangle = dwg.polygon(
-                points=trianglePoints,
-                fill='pink',
-                stroke='black',
-                stroke_width=1
-            )
-            transform_group.add(svgTriangle)
-            transform_group.add(dwg.circle(center=(triangle.centroid), r=2, fill='blue', stroke='black', stroke_width=1))
-        '''          
-
-
+        # NOTE: Methodology here:  https://drive.google.com/file/d/1bCS8gZQXRBTjdJaQH7uB7qPAZpiGT_Ts/view?usp=sharing 
+        # Sail.coe has all of the following lines and coe calculated.  
+        # Here we just put them into the SVG
+        # line from one triangle of the sail centroid to the other
+        transform_group.add(dwg.line(sail.coe.triangles[0].centroid, sail.coe.triangles[1].centroid, stroke='red', stroke_width=1))
+        # then get the lines perpendicular to that line between centroids...
         for line_segment in sail.coe.lines_perpendicular_to_centroid_line_segments:
             transform_group.add(dwg.line(line_segment.point_a , line_segment.point_b, stroke='purple', stroke_width=2))
-
-
-        # line from end point of vectors from perpendicuar lines
+        # and the line from end point of vectors from perpendicuar lines
         transform_group.add(dwg.line(
             sail.coe.lines_perpendicular_to_centroid_line_segments[0].point_b,
             sail.coe.lines_perpendicular_to_centroid_line_segments[1].point_b,
             stroke='blue', stroke_width=1))
+        # at this point, we have an intersection of the following:
+        #      1. line from one triangle of the sail centroid to the other 
+        #     2. ine from end point of vectors from perpendicuar lines
+        # the intersection of which gives us sail.coe.center_of_effort which has already been calculated
 
-        # this will only work for a 4 sided sail...
-
-        # line from one centroid to the other
-        transform_group.add(dwg.line(sail.coe.triangles[0].centroid, sail.coe.triangles[1].centroid, stroke='red', stroke_width=1))
-
-
+        # Need an inner group that flips again so text will be in right orientation 
         text_group = transform_group.add(dwg.g(transform="scale(1, -1)"))  # Flip back!
 
-        # Put labels out there
-        # TODO: Need to flip them 
+        # TODO: Make this better.
         text_group.add(dwg.text('tack', insert=(sail.tack.x+5, -1 *(sail.tack.y) - 250), fill='black', font_size='20px'))
         text_group.add(dwg.text('throat', insert=(10,-40), fill='black', font_size='20px'))
         text_group.add(dwg.text('clew', insert=(sail.clew.x-40, -sail.clew.y), fill='black', font_size='20px'))
         text_group.add(dwg.text('peak', insert=(sail.peak.x, -(sail.peak.y) +50 ), fill='black', font_size='20px'))
 
-
-        # find sail COE...need intersection of 2 lines for 4 sided sail..
-        #    1. line from one centroid to another
-        #    2. line from endpoints of vectors from centroids of component triangles
-        line_1 = Line(sail.coe.triangles[0].centroid, sail.coe.triangles[1].centroid)
-        line_2 =  Line(sail.coe.lines_perpendicular_to_centroid_line_segments[0].point_b, sail.coe.lines_perpendicular_to_centroid_line_segments[1].point_b)
-        sail_centroid_point = intersection(line_1, line_2)
-        transform_group.add(dwg.circle(center=(sail_centroid_point), r=2, fill='blue', stroke='black', stroke_width=1))
-        text_group.add(dwg.text('COE', insert=(sail_centroid_point.x, -sail_centroid_point.x), fill='black', font_size='20px'))
+        transform_group.add(dwg.circle(center=(sail.coe.center_of_effort), r=2, fill='blue', stroke='black', stroke_width=1))
+        text_group.add(dwg.text('COE', insert=(sail.coe.center_of_effort.x, -sail.coe.center_of_effort.x), fill='black', font_size='20px'))
 
 
-        # NOTE: Methodology here:  https://drive.google.com/file/d/1bCS8gZQXRBTjdJaQH7uB7qPAZpiGT_Ts/view?usp=sharing 
-
-
-        # need intersection of: 
-        #    1. transform_group.add(dwg.line(sail.coe.triangles[0].centroid, sail.coe.triangles[1].centroid, stroke='black', stroke_width=1))
-        #    2.  transform_group.add(dwg.line(
-        #           sail.coe.lines_perpendicular_to_centroid_line_segments[0].point_b,
-        #           sail.coe.lines_perpendicular_to_centroid_line_segments[1].point_b,
-        #           stroke='blue', stroke_width=2))
 
         dwg.add(transform_group)
         dwg.save()
