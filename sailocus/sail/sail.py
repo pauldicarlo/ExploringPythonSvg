@@ -98,7 +98,7 @@ class Sail(object):
 class CenterOfEffort(object):
     
     ################################################################
-    def __init__(self, sail):
+    def __init__(self, sail: Sail):
         
         self.sail = sail
         #self.sail.validateSail()
@@ -149,7 +149,7 @@ class CenterOfEffort(object):
         self.tp_lineSegment = LineSegment(tp1, tp2)
 
 
-        line1 = Line(self.lines_connecting_centroid_line_segments[0].point_a, self.lines_connecting_centroid_line_segments[0].point_b)
+        line1 = Line(self.lines_connecting_centroid_line_segments[0].point_b, self.lines_connecting_centroid_line_segments[0].point_a)
         line2 = Line(tp1, tp2)
         
         self.center_of_effort = intersection(line1, line2)

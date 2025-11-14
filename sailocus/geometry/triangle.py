@@ -26,7 +26,7 @@ class Triangle(object):
 		self.validate()
 		self.centroid = self.getCentroidPoint()
 
-	def getAsPoints(self):
+	def getAsPoints(self) -> list[Point]:
 		points = []
 		points.append(self.point_a)
 		points.append(self.point_b)
@@ -57,7 +57,7 @@ class Triangle(object):
 		return area
 	
 	################################################################
-	def getCentroidLineSegments(self):
+	def getCentroidLineSegments(self) -> list[LineSegment]:
 		self.validate()
 		
 		lineSegments = []
@@ -78,7 +78,7 @@ class Triangle(object):
     # are called "medians of the triangle."  Their common intersection
     # point is called the "centroid"
 	################################################################
-	def getCentroidPoint(self):
+	def getCentroidPoint(self) -> Point:
 		self.validate()
 		
 		# the centroid is the intersection of the centroid line segments.
@@ -88,7 +88,6 @@ class Triangle(object):
 		l2 = Line(lineSegments[1].point_a, lineSegments[1].point_b)
 		
 		coe = intersection(l1, l2)
-		
 		
 		return coe
 

@@ -19,24 +19,24 @@ class SVG():
     def __init__(sel ):
         pass
 
-    def writeToFile(self, sail, pathToFile, off_set=0):
+    # For a given Sail object, write a diagram of it with the COE to a SVG file.
+    def writeToFile(self, sail:Sail, pathToFile: str, margin_off_set= Point(0,0)):
         points = sail.getAsPoints()
 
         #TODO - need to handle offest for entire set of points/polygons/etc
-        off_set = (0,0)
 
-        canvas_size, points = recalculate(points, off_set)
+        # We need to calcute the canvas size, we create a point to service as the
+        # margin, it's offset from (0,0) will be used in all four corners.
+        canvas_size = calculateCanvasSize(points, margin_off_set)
         width, height = canvas_size
 
         dwg = svgwrite.Drawing(pathToFile, size=(str(canvas_size[0])+'px', str(canvas_size[1])+'px'))
         transform_group = dwg.g(transform=f"translate(0, {height}) scale(1, -1)")
 
-        #dwg.add(dwg.rect(insert=(0, 0), size=('100%', '100%'), fill='darkkhaki'))
+        # Background color
         dwg.add(dwg.rect(insert=(0, 0), size=(str(canvas_size[0])+'px', str(canvas_size[1])+'px'), fill='darkseagreen'))
 
-        # dwg.add(dwg.line((10, 50), (250, 100), stroke='blue', stroke_width=5))
-
-
+        # Basic sail shape
         trapezoid = dwg.polygon(
             points=points,
             fill='ivory',
@@ -44,11 +44,10 @@ class SVG():
             stroke_width=1
         )
         transform_group.add(trapezoid)
-
         # draw line from throat to clew
         transform_group.add(dwg.line(sail.throat, sail.clew, stroke='black', stroke_width=1, stroke_dasharray='9,5'))
 
-        # this will only work for a 4 sided sail...
+        # NOTE: this will only work for a 4 sided sail...
 
         # NOTE: Methodology here:  https://drive.google.com/file/d/1bCS8gZQXRBTjdJaQH7uB7qPAZpiGT_Ts/view?usp=sharing 
         # Sail.coe has all of the following lines and coe calculated.  
@@ -81,30 +80,26 @@ class SVG():
         text_group.add(dwg.text('COE', insert=(sail.coe.center_of_effort.x, -sail.coe.center_of_effort.x), fill='black', font_size='20px'))
 
 
+        # TODO:  change translate to use point margin_off_set_point instead of (10,-10) below
+        relocation_group = dwg.g(transform=f"translate("+str(margin_off_set.x) +",-"+str(margin_off_set.y)+")")
+        relocation_group.add(transform_group)
 
-        dwg.add(transform_group)
+        dwg.add(relocation_group)
         dwg.save()
         
-def recalculate(points, off_set):
+def calculateCanvasSize(points: list[Point], off_set: Point):
 
+    # Find the maximum X and Y from the points supplied
     maxX = 0
     maxY = 0
-
-    updated_points = []
-
-    # TODO ensure that points are in sequence and make sense 
-
-    off_set_x, off_set_y = off_set
-
     for x,y in points:
         if x > maxX:
             maxX = x
         if y > maxY:
             maxY = y        
-        updated_points.append((x+off_set_x, y+off_set_y))
 
-    print("maxX=", maxX, " maxY=", maxY)
-
+    # Using off_set, we set a canvas size to use which has room for borders based on off_set Point
+    off_set_x, off_set_y = off_set
     canvas_size = (maxX + 2*off_set_x, maxY + 2*off_set_y)
 
-    return canvas_size, updated_points
+    return canvas_size
