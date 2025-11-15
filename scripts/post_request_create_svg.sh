@@ -5,4 +5,5 @@ export CLEW="(397,29)"
 
 
 
-/usr/bin/curl -o ./somefile.svg -v -X POST "http://127.0.0.1:5000/generate-svg?peak=$PEAK"
+/usr/bin/curl -o ./somefile.svg -v -X POST \
+    "http://127.0.0.1:5000/generate-svg?peak=$PEAK&throat=$THROAT&tack=$TACK&clew=$CLEW"

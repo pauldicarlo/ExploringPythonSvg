@@ -4,6 +4,11 @@
 @license: MIT
 @contact: paul.dicarlo@gmail.com
 '''
+
+import re
+import ast
+from typing import Tuple, Any
+
 ################################################################
 # class Point corresponds to the x,y coordinates of the corners 
 # of a 3 or 4 sided sail (Tack, Clew, Head, Peak, and Throat)
@@ -44,3 +49,19 @@ class Point(tuple):
             raise ValueError(f"{cls.__name__} requires exactly 2 values, got {len(args)}")
 
         # You can override __new__ more strictly if desired
+
+
+
+PATTERN = re.compile(r'^\(\s*([-+]?\d{1,3}(?:,\d{3})*)\s*,\s*([-+]?\d{1,3}(?:,\d{3})*)\s*\)$')
+
+def str_to_int_tuple(s: str) -> Tuple[int, int]:
+    m = PATTERN.fullmatch(s)
+    if not m:
+        raise ValueError(f"Invalid format: {s!r}")
+
+    # ast.literal_eval safely parses the two comma-separated numbers
+    # (it handles the thousands-separator commas for us)
+    try:
+        return tuple(ast.literal_eval(f'({m.group(1)}, {m.group(2)})'))
+    except Exception as exc:
+        raise ValueError(f"Cannot convert numbers in {s!r}") from exc

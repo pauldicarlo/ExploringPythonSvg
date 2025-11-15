@@ -24,15 +24,21 @@ app = Flask(__name__)
 #@app.route('/generate-svg')
 @app.route('/generate-svg', methods=['POST'])
 def generate_svg_endpoint():
-    peak = request.args.get('peak')      # → "(1,2)"
-    #throat = request.args.get('peak')      # → "(1,2)"
-    #tack = request.args.get('peak')      # → "(1,2)"
-    #clew = request.args.get('clew')      # → "(1,2)"
+    peak_str = request.args.get('peak')      # → "(1,2)"
+    throat_str = request.args.get('throat')      # → "(1,2)"
+    tack_str = request.args.get('tack')      # → "(1,2)"
+    clew_str = request.args.get('clew')      # → "(1,2)"
 
-    peak = point.Point(213, 510)
-    throat = point.Point(10, 233)
-    tack = point.Point(0, 0) 
-    clew = point.Point(397, 29) 
+    peak = point.str_to_point(peak_str)
+    throat = point.str_to_point(throat_str)
+    tack = point.str_to_point(tack_str)
+    clew = point.str_to_point(clew_str)
+
+
+    #peak = point.Point(213, 510)
+    #throat = point.Point(10, 233)
+    #tack = point.Point(0, 0) 
+    #clew = point.Point(397, 29) 
 
 
     xsail = sail.Sail(tack=tack, clew=clew, head=None, peak=peak, throat=throat, sailName = "Four sided sail")
