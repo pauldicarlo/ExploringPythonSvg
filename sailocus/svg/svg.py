@@ -16,11 +16,8 @@ from sailocus.sail.sail import TriangleCenterOfEffort
 
 class SVG():
 
-    def __init__(sel ):
-        pass
-
     # For a given Sail object, write a diagram of it with the COE to a SVG file.
-    def writeToFile(self, sail:Sail, pathToFile: str, margin_off_set= Point(0,0)):
+    def createSailSVG(self, sail:Sail, path_to_file: str, write_file: bool, margin_off_set= Point(0,0)):
         points = sail.getAsPoints()
 
         #TODO - need to handle offest for entire set of points/polygons/etc
@@ -30,7 +27,7 @@ class SVG():
         canvas_size = calculateCanvasSize(points, margin_off_set)
         width, height = canvas_size
 
-        dwg = svgwrite.Drawing(pathToFile, size=(str(canvas_size[0])+'px', str(canvas_size[1])+'px'))
+        dwg = svgwrite.Drawing(path_to_file, size=(str(canvas_size[0])+'px', str(canvas_size[1])+'px'))
         transform_group = dwg.g(transform=f"translate(0, {height}) scale(1, -1)")
 
         # Background color
@@ -81,14 +78,18 @@ class SVG():
                    Point(sail.clew.x-75, -sail.clew.y), 'black', '20px' )
         labelPoint(dwg, text_group, [sail.POINT_NAME_PEAK, str(sail.peak)], 
                    Point(sail.peak.x, -(sail.peak.y) + 50), 'black', '20px' )
-        labelPoint(dwg, text_group, ['COE: ' + str(sail.coe.center_of_effort)], 
+        labelPoint(dwg, text_group, [sail.POINT_NAME_COE +  ': ' + str(sail.coe.center_of_effort)], 
                    Point(sail.coe.center_of_effort.x, -sail.coe.center_of_effort.x), 'black', '20px' )
 
         relocation_group = dwg.g(transform=f"translate("+str(margin_off_set.x) +",-"+str(margin_off_set.y)+")")
         relocation_group.add(transform_group)
 
         dwg.add(relocation_group)
-        dwg.save()
+
+        if write_file:
+            dwg.save()
+
+        return dwg
 
 def labelPoint(dwg, dwg_group, text_lines:list[str], insert_point: Point, fill_color: str, font_size:str): 
 

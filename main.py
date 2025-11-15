@@ -12,12 +12,20 @@ from sailocus.geometry import triangle
 
 from sailocus.svg import svg
 
+from sailocus.server import server
+
 from sailocus.sail import sail
 
 import sys
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtCore import Qt
+
+
+# TODO: create a main for running the server version
+# server.runApp()
+
+
 
 # import sys
 # from pathlib import Path
@@ -34,15 +42,11 @@ xsail.validateSail()
 xsvg = svg.SVG()
 pathToFile = "./simpleSailFromClass.svg"
 off_set = point.Point(25,25)
-xsvg.writeToFile(xsail, pathToFile, off_set)
+xsvg.createSailSVG(xsail, pathToFile, True, off_set)
 
 
 
-lineX = line.Line(point.Point(0,0), point.Point(400,0))
-
-triangleX = triangle.Triangle(point.Point(0,0), point.Point (30,400), point.Point(350,0))
-
-
+# now display in a window using PyQt
 app = QApplication(sys.argv)
 window = QMainWindow()
 window.setWindowTitle("SVG Viewer")

@@ -41,6 +41,7 @@ class Sail(object):
         self.POINT_NAME_TACK = "Tack"
         self.POINT_NAME_CLEW = "Clew"
         self.POINT_NAME_HEAD = "Head"
+        self.POINT_NAME_COE = "COE" # Center of Effort
 
         self.coe = CenterOfEffort(self)
 
