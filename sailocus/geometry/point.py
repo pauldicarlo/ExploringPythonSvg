@@ -54,7 +54,7 @@ class Point(tuple):
 
 PATTERN = re.compile(r'^\(\s*([-+]?\d{1,3}(?:,\d{3})*)\s*,\s*([-+]?\d{1,3}(?:,\d{3})*)\s*\)$')
 
-def str_to_int_tuple(s: str) -> Tuple[int, int]:
+def str_to_point(s: str) -> Point[int, int]:
     m = PATTERN.fullmatch(s)
     if not m:
         raise ValueError(f"Invalid format: {s!r}")
@@ -62,6 +62,8 @@ def str_to_int_tuple(s: str) -> Tuple[int, int]:
     # ast.literal_eval safely parses the two comma-separated numbers
     # (it handles the thousands-separator commas for us)
     try:
-        return tuple(ast.literal_eval(f'({m.group(1)}, {m.group(2)})'))
+        # return tuple(ast.literal_eval(f'({m.group(1)}, {m.group(2)})'))
+        t = tuple(ast.literal_eval(f'({m.group(1)}, {m.group(2)})'))
+        return Point(t[0], t[1])
     except Exception as exc:
         raise ValueError(f"Cannot convert numbers in {s!r}") from exc
