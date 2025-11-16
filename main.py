@@ -22,11 +22,6 @@ from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtCore import Qt
 
 
-# TODO: create a main for running the server version
-server.runApp()
-
-
-
 # import sys
 # from pathlib import Path
 # ys.path.append(str(Path(__file__).parent))  # Add project root

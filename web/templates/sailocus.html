@@ -15,9 +15,19 @@
 <body>
     <div class="container">
         <h2>Sailocus: Calculate Center of Effort(COE)</h2>
-        <h3>Enter Some Text</h3>
+        <h3>Entery (x,y) coordinates for a four-sided sail.</h3>
         <form method="POST">
-            <input type="text" name="user_input" placeholder="Type something here..." required>
+            <label for="peak">Peak</label>
+            <input type="text" name="peak" placeholder="Type something here..." required>
+
+            <label for="throat">Throat</label>
+            <input type="text" name="throat" placeholder="Type something here..." required>
+
+            <label for="tack">Tack</label>
+            <input type="text" name="tack" placeholder="Type something here..." required>
+
+            <label for="clew">Clew</label>
+            <input type="text" name="clew" placeholder="Type something here..." required>
             <br>
             <input type="submit" value="Submit">
         </form>

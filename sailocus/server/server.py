@@ -31,7 +31,17 @@ def index():
 def sailocus():
     message = None
     if request.method == 'POST':
-        message = request.form['user_input']
+        peak_str = request.form['peak']
+        throat_str = request.form['throat']
+        tack_str = request.form['tack']
+        clew_str = request.form['clew']
+
+
+        peak = point.str_to_point(peak_str)
+        throat = point.str_to_point(throat_str)
+        tack = point.str_to_point(tack_str)
+        clew = point.str_to_point(clew_str)
+        
     
     return render_template('sailocus.html', message=message)
 
