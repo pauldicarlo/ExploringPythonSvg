@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sailocus: Calculate Center of Effort(COE) </title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 600px; margin: auto; }
+        input[type="text"] { width: 100%; padding: 10px; margin: 10px 0; font-size: 16px; }
+        input[type="submit"] { padding: 10px 20px; font-size: 16px; }
+        .result { margin-top: 20px; padding: 15px; background: #f0f0f0; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sailocus: Calculate Center of Effort(COE)</h2>
+        <h3>Enter Some Text</h3>
+        <form method="POST">
+            <input type="text" name="user_input" placeholder="Type something here..." required>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+
+        {% if message %}
+        <div class="result">
+            <strong>You entered:</strong> {{ message }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

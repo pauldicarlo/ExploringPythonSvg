@@ -5,7 +5,7 @@
 @contact: https://github.com/pauldicarlo
 '''
 # Using Flask
-from flask import Flask, Response, request
+from flask import Flask, Response, request, render_template
 
 import svgwrite
 
@@ -18,7 +18,22 @@ from sailocus.svg import svg
 from sailocus.sail import sail
 
 
-app = Flask(__name__)
+app = Flask(__name__, 
+    static_folder="../../web/static",
+    template_folder="../../web/templates")
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route('/sailocus', methods=['GET', 'POST'])
+def sailocus():
+    message = None
+    if request.method == 'POST':
+        message = request.form['user_input']
+    
+    return render_template('sailocus.html', message=message)
 
 
 #@app.route('/generate-svg')
