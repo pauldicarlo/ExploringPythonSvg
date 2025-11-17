@@ -17,7 +17,7 @@ from sailocus.sail.sail import TriangleCenterOfEffort
 class SVG():
 
     # For a given Sail object, write a diagram of it with the COE to a SVG file.
-    def createSailSVG(self, sail:Sail, path_to_file: str, write_file: bool, margin_off_set= Point(0,0)):
+    def createSailSVG(self, sail:Sail, path_to_file: str, write_file: bool, margin_off_set= Point(0,0)) -> svgwrite.Drawing:
         points = sail.getAsPoints()
 
         #TODO - need to handle offest for entire set of points/polygons/etc

@@ -41,6 +41,14 @@ def sailocus():
         throat = point.str_to_point(throat_str)
         tack = point.str_to_point(tack_str)
         clew = point.str_to_point(clew_str)
+
+        xsail = sail.Sail(tack=tack, clew=clew, head=None, peak=peak, throat=throat, sailName = "Four sided sail")
+        xsail.validateSail()
+        xsvg = svg.SVG()
+        pathToFile = "./simpleSailFromClass.svg"
+        off_set = point.Point(25,25)
+        svg_content =  xsvg.createSailSVG(xsail, pathToFile, True, off_set)
+        return render_template('sailocus.html', message=message, svg_content=svg_content.tostring())
         
     
     return render_template('sailocus.html', message=message)

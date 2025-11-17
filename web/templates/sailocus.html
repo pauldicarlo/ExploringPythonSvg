@@ -16,27 +16,40 @@
     <div class="container">
         <h2>Sailocus: Calculate Center of Effort(COE)</h2>
         <h3>Entery (x,y) coordinates for a four-sided sail.</h3>
+        <a>You can create a four-sided sail by entering the (x,y) coordinates.  Ideally use mm for your units of measure.</a>
+        <br></br>
         <form method="POST">
             <label for="peak">Peak</label>
-            <input type="text" name="peak" placeholder="Type something here..." required>
+            <input type="text" name="peak" placeholder="Type something here in the form of (x,y)..." required>
 
             <label for="throat">Throat</label>
-            <input type="text" name="throat" placeholder="Type something here..." required>
+            <input type="text" name="throat" placeholder="Type something here in the form of (x,y)..."" required>
 
             <label for="tack">Tack</label>
-            <input type="text" name="tack" placeholder="Type something here..." required>
+            <input type="text" name="tack" placeholder="Type something here in the form of (x,y)..." required>
 
             <label for="clew">Clew</label>
-            <input type="text" name="clew" placeholder="Type something here..." required>
+            <input type="text" name="clew" placeholder="Type something here in the form of (x,y)..." required>
             <br>
             <input type="submit" value="Submit">
         </form>
 
+                {% if svg_content %}
+        <div class="result">
+            <strong>SVG Generated:</strong>
+            <div class="svg-container" style="margin-top:15px;">
+                {{ svg_content | safe }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!--
         {% if message %}
         <div class="result">
             <strong>You entered:</strong> {{ message }}
         </div>
         {% endif %}
+    -->
     </div>
 </body>
 </html>
