@@ -71,9 +71,9 @@ class SVG():
 
         # TODO: Make this better.
         labelPoint(dwg, text_group, [sail.POINT_NAME_TACK, str(sail.tack)], 
-                   Point(sail.tack.x, -1*sail.tack.y-240), 'black', '20px' )
+                   Point(sail.tack.x, -1*sail.tack.y-40), 'black', '20px' )
         labelPoint(dwg, text_group, [sail.POINT_NAME_THROAT, str(sail.throat)], 
-                   Point(10, -40), 'black', '20px' )
+                   Point(sail.throat.x, -240), 'black', '20px' )
         labelPoint(dwg, text_group, [sail.POINT_NAME_CLEW, str(sail.clew)], 
                    Point(sail.clew.x-75, -sail.clew.y), 'black', '20px' )
         labelPoint(dwg, text_group, [sail.POINT_NAME_PEAK, str(sail.peak)], 

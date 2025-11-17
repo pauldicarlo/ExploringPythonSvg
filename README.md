@@ -1,4 +1,5 @@
 # ExploringPythonSvg
+paul.dicarlo@gmail.com
 
 ## Requirements
 * pip install svgwrite
@@ -11,5 +12,8 @@
 * pip3 install  -r requirements.txt
 * python3 -m pytest
 
+# Sample HTML 
+Screen grab of first time getting simple code path to work for a web interface to generate the Center of Effort (COE).
+![alt text](materials/firstSuccessfulSVGInHtml.png)
 
-paul.dicarlo@gmail.com
+
