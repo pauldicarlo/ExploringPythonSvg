@@ -21,6 +21,21 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "main_fastapi.py",
+            "type": "debugpy",
+            "request": "launch",
+            "console": "integratedTerminal",
+
+                    "module": "uvicorn",
+                    "args": [
+                        "main_fastapi:app", // Replace 'main' with your Python file name and 'app' with your FastAPI instance name
+                        "--reload",
+                        "--host", "127.0.0.1", // Adjust host if needed
+                        "--port", "8000" // Adjust port if needed
+                    ]
+
+        },
+        {
             "name": "Python: Debug All Pytest Tests",
             "type": "debugpy",
             "request": "launch",
