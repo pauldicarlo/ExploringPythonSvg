@@ -1,3 +1,10 @@
+'''
+@author: Paul DiCarlo
+@copyright: 2025 Paul DiCarlo
+@license: MIT
+@contact: https://github.com/pauldicarlo
+'''
+
 from fastapi import FastAPI
 from sailocus.apis.base import api_router
 
