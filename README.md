@@ -36,8 +36,10 @@ You should only use sails designed and made by a professional. This code is just
 * `main_fastapi.py` - Use a URL similar to http://127.0.0.1:8000/sailocus/api/v1/coe/ 
     * And to get the Swagger docs:  http://127.0.0.1:8000/docs 
     * sample script to invoke [post_request_create_svg_fastapi.sh](./scripts/post_request_create_svg_fastapi.sh)
+    * for the FastAPI web app:  http://localhost:8000/sailocus/api/v1/sailocus/
 * `main_flask.py` - Use a URL similar to http://127.0.0.1:5000/sailocus to get a simple form that takes sail coordinates for a 4-sided sail, calculates the CoE, and then displays an SVG of the sail/CoE. 
     * sample script to invoke [post_request_create_svg_flask.sh](./scripts/post_request_create_svg_flask.sh)
+    * for the Flask web app:  http://127.0.0.1:5000/sailocus
 # Sample HTML 
 Screen grab of first time getting simple code path to work for a web interface to generate the Center of Effort (CoE).
 ![alt text](materials/firstSuccessfulSVGInHtml.png)
