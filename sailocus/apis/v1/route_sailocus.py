@@ -7,12 +7,13 @@
 
 import logging
 
-from fastapi import APIRouter, Request, Form, Response
+from fastapi import APIRouter, Request, Form, Response, HTTPException, status
 from fastapi.responses import  HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 from sailocus.geometry.point import Point
 from sailocus.sail.sails import SortOfOptimistSail
+from sailocus.sail.sail import Sail
 from sailocus.svg.svg import SVG
 
 router = APIRouter()
@@ -41,8 +42,8 @@ async def get_form(request: Request):
             "request": request,
             "initial_value_tack_x":SortOfOptimistSail.tack.x,
             "initial_value_tack_y":SortOfOptimistSail.tack.y,
-            "initial_value_throat_x":SortOfOptimistSail.throat.y, # pyright: ignore[reportOptionalMemberAccess]
-            "initial_value_throat_y":SortOfOptimistSail.throat.x, # pyright: ignore[reportOptionalMemberAccess]
+            "initial_value_throat_x":SortOfOptimistSail.throat.x, # pyright: ignore[reportOptionalMemberAccess]
+            "initial_value_throat_y":SortOfOptimistSail.throat.y, # pyright: ignore[reportOptionalMemberAccess]
             "initial_value_peak_x":SortOfOptimistSail.peak.x, # pyright: ignore[reportOptionalMemberAccess]
             "initial_value_peak_y":SortOfOptimistSail.peak.y, # pyright: ignore[reportOptionalMemberAccess]
             "initial_value_clew_x":SortOfOptimistSail.clew.x,
@@ -64,8 +65,18 @@ async def post_form(request: Request,
     Render the form template when accessing the root path
     """
 
-    # TODO:  create Sail using values sent from client
-    the_sail = SortOfOptimistSail
+    try:
+        tack = Point(int(tack_x), int(tack_y)) 
+        throat = Point(int(throat_x), int(throat_y))
+        peak = Point(int(peak_x), int(peak_y))
+        clew = Point(int(clew_x), int(clew_y))
+
+        the_sail = Sail(tack=tack, throat=throat, peak=peak, clew=clew)
+    except ValueError:
+          raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Password must be at least 8 characters long"
+        )
 
     svg_obj = SVG()
 
