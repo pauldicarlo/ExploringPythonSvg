@@ -64,22 +64,25 @@ async def post_form(request: Request,
     Render the form template when accessing the root path
     """
 
+    # TODO:  create Sail using values sent from client
+    the_sail = SortOfOptimistSail
+
     svg_obj = SVG()
 
-    drawing = svg_obj.createSailSVG(SortOfOptimistSail, "", write_file=False, margin_off_set=Point(10,10))
-    svg_text = drawing.tostring()
+    drawing = svg_obj.createSailSVG(the_sail, "", write_file=False, margin_off_set=Point(10,10))
+    svg_content = drawing.tostring()
 
-    svg = f"""<?xml version="1.0" encoding="UTF-8"?>
-        <svg width="820" height="600" xmlns="http://www.w3.org/2000/svg" style="background:#fff; font-family: Arial, sans-serif;">
-  <!-- Title -->
-  <text x="10" y="10" font-size="32" font-weight="bold" fill="#2c3e50">safe_title</text>
-  <!-- Separator line -->
-  <line x1="10" y1="10" x2="790" y2="10" stroke="#ddd" stroke-width="2"/>
-  <!-- Body text -->
-  {svg_text}
-</svg>"""
-
-
-    #return Response(content=svg_text, media_type="image/svg+xml")
-    return Response(content=svg, media_type="image/svg+xml")
-
+    return templates.TemplateResponse("sailocus_fastapi.html", 
+        {
+            "request": request, 
+            "svg_content": svg_content,
+            # We want the user to see the same values they just entered for the sail
+            "initial_value_tack_x": tack_x,
+            "initial_value_tack_y":tack_y,
+            "initial_value_throat_x":throat_x, 
+            "initial_value_throat_y":throat_y, 
+            "initial_value_peak_x":peak_x, 
+            "initial_value_peak_y":peak_y, 
+            "initial_value_clew_x":clew_x,
+            "initial_value_clew_y":clew_y,
+    })

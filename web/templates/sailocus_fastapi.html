@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -119,8 +120,9 @@
             border: 1px solid #f5c6cb;
         }
     </style>
-</head>    
 </head>
+</head>
+
 <body>
     <div class="container">
         <h1>Generate Your SVG</h1>
@@ -174,41 +176,15 @@
             </div>
         </form>
 
-        <div id="svg-container">
-            <!-- SVG will be inserted here -->
+        {% if svg_content %}
+        <h2>Generated SVG:</h2>
+        <div>
+            {{ svg_content | safe }}
         </div>
-
-        <div id="result"></div>
-
-        <script>
-            const textarea = document.getElementById('textInput');
-            const button   = document.getElementById('submitBtn');
-            const result   = document.getElementById('result');
-            const form     = document.getElementById('svgForm');
-
-            // Enable button only when textarea has content
-            textarea.addEventListener('input', () => {
-                button.disabled = textarea.value.trim() === '';
-            });
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const text = textarea.value.trim();
-                if (!text) return;
-
-                const response = await fetch('/generate-svg', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: new URLSearchParams({ 'tack_x': tack_x })
-                });
-
-                const svgText = await response.text();
-                result.innerHTML = svgText;  // Directly inject the SVG
-            });
-        </script>
+        {% endif %}
+    </div>
 
 
-        </div>
-    </body>
+</body>
+
 </html>
