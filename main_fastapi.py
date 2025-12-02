@@ -7,6 +7,7 @@
 
 from fastapi import FastAPI
 from sailocus.apis.base import api_router
+from web.routers.base import web_router
 
 class Config():
     
@@ -23,6 +24,7 @@ def start_app() -> FastAPI:
 
 def include_routers(app):
     app.include_router(api_router)
+    app.include_router(web_router)
 
 app = start_app()
 

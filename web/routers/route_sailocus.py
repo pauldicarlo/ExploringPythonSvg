@@ -7,7 +7,7 @@
 
 import logging
 
-from fastapi import APIRouter, Request, Form, Response, HTTPException, status
+from fastapi import APIRouter, Request, Form, HTTPException, status
 from fastapi.responses import  HTMLResponse
 from fastapi.templating import Jinja2Templates
 
