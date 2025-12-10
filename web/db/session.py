@@ -7,12 +7,18 @@
 
 import sqlite3
 from pathlib import Path
+from typing import Union
+
+class SessionError(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
 
 class Session:
     def __init__(self, db_connection:  sqlite3.Connection):
         self.db_Connection = db_connection
 
-def createSession() -> Session:
+def createSession() -> Union[Session, None]:
     db_path = Path("sailocus.db")
 
 
@@ -33,6 +39,7 @@ def createSession() -> Session:
         print("Database connection established.")
     except sqlite3.Error as e:
         print(f"Error connecting to database: {e}")
+        raise SessionError(message=f"Failure establishing creating/initializing Session: {e}")
 
     session = Session(conn)
     return session 
@@ -44,9 +51,9 @@ def create_tables(conn: sqlite3.Connection):
         CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        id TEXT NOT NULL,
+        user_id TEXT NOT NULL,
         password_hash TEXT NOT NULL
     )
     ''')
     conn.commit()
-    pass
+    print("done creatng database")

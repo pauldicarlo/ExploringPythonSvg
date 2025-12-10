@@ -5,7 +5,7 @@
 @contact: https://github.com/pauldicarlo
 '''
 
-from .connection import Session
+from .session import Session
 from sailocus.sail import sail
 
 from typing import Union
