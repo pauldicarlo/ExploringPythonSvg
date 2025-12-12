@@ -1,4 +1,4 @@
-# ExploringPythonSvg
+# Python Sailocus (Center-of-Effort)
 paul.dicarlo@gmail.com
 
 Blog: https://sailocus.blogspot.com/ 
@@ -14,10 +14,41 @@ Sailocus is an attempt to write code that will explore the aerodynamic forces on
 ### The Name Sailocus
 The name Sailocus comes from "sail" and "locus" (see quote above)
 
+### Simple Example
+```
+from sailocus.sail import sail
+from sailocus.geometry import point
+from sailocus.svg import svg
+
+# we're making a 4-sided sail here so we need
+# to have the peak, throat, take, and clew...
+# Point(x,y) where x/y are millimeters and ints
+peak = point.Point(213, 510)
+throat = point.Point(10, 233)
+tack = point.Point(0, 0) 
+clew = point.Point(397, 29) 
+
+# create a Sail with the points
+xsail = sail.Sail(tack=tack, clew=clew, head=None, peak=peak, throat=throat, sail_name = "Four sided sail")
+xsail.validateSail()
+print(f"CoE={xsail.coe}")
+
+# Create SVG file of sail and its CoE
+xsvg = svg.SVG()
+pathToFile = "./simpleSailFromClass.svg"
+off_set = point.Point(25,25)
+xsvg.createSailSVG(xsail, pathToFile, True, off_set)
+```
+
 ### Caveat
 You should only use sails designed and made by a professional. This code is just for a learning excercise.
 
-
+## Project Todos
+Future thigns ao add to this project
+* JWT tokens for Rest APIs (just to have them)
+* Hook up database, allow logins and ability to save/modify/delete sails in db
+* Login/create login pages
+* Group of premade dimensions for common sails (later in db) 
 
 # Setting up environment
 * python3 -m venv .venv 

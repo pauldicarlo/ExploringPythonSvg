@@ -46,7 +46,7 @@ except SessionError as e:
 
 app = start_app()
 
-# This line is crucial!
+# need this line so we can pull in css file(s)
 app.mount("/static", StaticFiles(directory="web/static"), name="static")
 
 # Create Jinja2 templates instance

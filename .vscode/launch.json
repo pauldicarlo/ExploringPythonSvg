@@ -14,6 +14,13 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "main_minimal.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "main_minimal.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "main_flask.py",
             "type": "debugpy",
             "request": "launch",

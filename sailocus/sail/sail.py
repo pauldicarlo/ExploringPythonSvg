@@ -166,6 +166,8 @@ class CenterOfEffort(object):
         self.center_of_effort = intersection(line1, line2)
         
 
+    def __str__(self):
+        return f"({self.center_of_effort.x},{self.center_of_effort.y})" # type: ignore
 
 class TriangleCenterOfEffort(object):
     ################################################################
