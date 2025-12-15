@@ -1,3 +1,9 @@
+#!/bin/bash
+# @author: Paul DiCarlo
+# @copyright: 2025 Paul DiCarlo
+# @license: MIT
+# @contact: https://github.com/pauldicarlo
+
 export PEAK="(213,510)"
 export THROAT="(10,233)"
 export TACK="(0,0)" 

@@ -1,4 +1,9 @@
 #!/bin/bash
+# @author: Paul DiCarlo
+# @copyright: 2025 Paul DiCarlo
+# @license: MIT
+# @contact: https://github.com/pauldicarlo
+
 
 export PEAK_X=213
 export PEAK_Y=510

@@ -10,6 +10,8 @@ sailocus.db
 
 request.json
 
+certs
+
 myenv
 .venv
 
